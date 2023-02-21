@@ -21,8 +21,5 @@ DATABASES = {
             'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
             'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
         },
-        'TEST': {
-            'MIRROR': 'default',
-        },
     }
 }
