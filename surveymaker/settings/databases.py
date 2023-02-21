@@ -1,7 +1,4 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -20,7 +17,7 @@ DATABASES = {
         'NAME': os.environ.get('MONGO_INITDB_DATABASE'),
         'CLIENT': {
             'host': os.environ.get('MONGO_HOST'),
-            'port': int(os.environ.get('MONGO_PORT')),
+            'port': int(os.environ.get('MONGO_PORT_DJANGO')),
             'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
             'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
         },
