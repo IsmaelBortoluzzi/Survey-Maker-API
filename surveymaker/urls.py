@@ -23,6 +23,7 @@ base_v1_url = 'api/v1/'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(base_v1_url, include('contact.urls')),
+    path(base_v1_url, include('survey.urls')),
 ]
 
 if django.conf.settings.DEBUG:

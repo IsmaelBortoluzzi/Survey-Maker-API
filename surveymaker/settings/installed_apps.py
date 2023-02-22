@@ -12,5 +12,5 @@ INSTALLED_APPS = [
 
     # Our apps
     'contact',
-
+    'survey',
 ]
