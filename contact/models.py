@@ -7,7 +7,7 @@ class Country(models.Model):
     population = models.IntegerField()
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.id} - {self.name}'
 
 
 class State(models.Model):
@@ -17,7 +17,7 @@ class State(models.Model):
     acronym = models.CharField(max_length=16, default='')
 
     def __str__(self):
-        return f'{self.name} - {self.acronym}'
+        return f'{self.id} - {self.name} - {self.acronym}'
 
 
 class City(models.Model):
@@ -26,7 +26,7 @@ class City(models.Model):
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f'{self.name} - {self.state.acronym}'
+        return f'{self.id} - {self.name} - {self.state.acronym}'
 
 
 class Contact(models.Model):

@@ -4,30 +4,34 @@ from contact.models import Contact, Country, State, City
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    city = serializers.StringRelatedField()
+    city_name = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Contact
-        fields = ('user', 'city', 'is_author', 'gender', 'birthday')
+        fields = ('user', 'city', 'gender', 'birthday')
 
 
 class CountrySerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Country
-        fields = ('name', 'population')
+        fields = ('id', 'name', 'population')
 
 
 class StateSerializer(serializers.ModelSerializer):
     country = serializers.StringRelatedField()
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = State
-        fields = ('name', 'population', 'country', 'acronym')
+        fields = ('id', 'name', 'population', 'country', 'acronym')
 
 
 class CitySerializer(serializers.ModelSerializer):
     state = serializers.StringRelatedField()
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = City
-        fields = ('name', 'population', 'state')
+        fields = ('id', 'name', 'population', 'state')
