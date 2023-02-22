@@ -1,14 +1,14 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from survey.models import Question
+from survey.models import Survey
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    # answer_choices = serializers.SerializerMethodField()
+    # responded_surveys = serializers.SerializerMethodField()
     #
-    # def get_answer_choices(self):
+    # def get_responded_surveys(self):
 
     class Meta:
-        model = Question
-        fields = ('name', 'question_type', 'written_answer', 'answer_choices')
+        model = Survey
+        fields = ('_id', 'date_created', 'author', 'title', 'responded_surveys')
