@@ -57,17 +57,18 @@ class CityAPIList(ListAPIView):
 
     @staticmethod
     def normalize_field(field):
-        return normalize('NFKD', field).encode('ASCII', 'ignore').decode('ASCII')
+        return normalize('NFKD', field).encode('ASCII', 'ignore').decode('ASCII') if field is not None else field
 
     def get_queryset(self):
         qp = self.request.query_params
         qs = City.objects.all()
 
         lookup_fields = {
-            'name__iexact': self.normalize_field(qp.get('city', '')),
-            'state__name__iexact': self.normalize_field(qp.get('state', '')),
-            'state__country__name__iexact': self.normalize_field(qp.get('country', '')),
+            'name__iexact': self.normalize_field(qp.get('city', None)),
+            'state__name__iexact': self.normalize_field(qp.get('state', None)),
+            'state__country__name__iexact': self.normalize_field(qp.get('country', None)),
         }
+        lookup_fields = dict(filter(lambda x: x[1] is not None, lookup_fields.items()))
 
         return qs.filter(**lookup_fields)
 
