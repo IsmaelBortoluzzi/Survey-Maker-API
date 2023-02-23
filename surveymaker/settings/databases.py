@@ -1,3 +1,4 @@
+import mongoengine
 import os
 
 # Database
@@ -12,14 +13,13 @@ DATABASES = {
         'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': os.environ.get('DATABASE_PORT'),
     },
-    'mongodb': {
-        'ENGINE': 'djongo',
-        'NAME': os.environ.get('MONGO_INITDB_DATABASE'),
-        'CLIENT': {
-            'host': os.environ.get('MONGO_HOST'),
-            'port': int(os.environ.get('MONGO_PORT_DJANGO')),
-            'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
-            'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
-        },
-    }
 }
+
+MONGO_NAME = os.environ.get('MONGO_INITDB_DATABASE')
+MONGO_HOST = os.environ.get('MONGO_HOST')
+MONGO_USER = os.environ.get('MONGO_INITDB_ROOT_USERNAME')
+MONGO_PASS = os.environ.get('MONGO_INITDB_ROOT_PASSWORD')
+
+MONGO_DATABASE_HOST = 'mongodb://%s:%s@%s/%s' % (MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_NAME)
+
+mongoengine.connect(MONGO_NAME, host=MONGO_DATABASE_HOST)

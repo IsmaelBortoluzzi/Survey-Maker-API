@@ -9,6 +9,7 @@ INSTALLED_APPS = [
 
     # Django rest framework
     'rest_framework',
+    'rest_framework_mongoengine',
 
     # Our apps
     'contact',

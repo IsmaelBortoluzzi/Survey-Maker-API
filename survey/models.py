@@ -1,21 +1,22 @@
-from djongo import models
+import mongoengine
 from survey.managers import SurveyManager
 
 
-class QuestionChoices(models.Model):
-    text = models.TextField()
+class QuestionChoices(mongoengine.Document):
+    text = mongoengine.StringField(default='', required=True)
+    chosen = mongoengine.BooleanField(default=False, required=True)
 
     class Meta:
         abstract = True
 
 
-class Question(models.Model):
+class Question(mongoengine.Document):
     QUESTION_TYPE = (
         ('descriptive', 'descriptive'),
         ('multiple_choice', 'multiple_choice'),
         ('mutually_exclusive', 'mutually_exclusive')
     )
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=512)
     question_type = models.CharField(max_length=64, choices=QUESTION_TYPE)
 
     written_answer = models.TextField(default=None)  # if it's a descriptive question
@@ -25,7 +26,7 @@ class Question(models.Model):
         abstract = True
 
 
-class SurveyToRespond(models.Model):
+class SurveyToRespond(mongoengine.Document):
     date_responded = models.DateTimeField()
     respondent = models.IntegerField()
     questions = models.ArrayField(model_container=Question)
@@ -34,7 +35,7 @@ class SurveyToRespond(models.Model):
         abstract = True
 
 
-class Survey(models.Model):
+class Survey(mongoengine.Document):
     objects = SurveyManager()
     _id = models.ObjectIdField()
     date_created = models.DateField()
@@ -42,8 +43,5 @@ class Survey(models.Model):
     author = models.IntegerField()
     title = models.CharField(max_length=64)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        return super().save(force_insert=force_insert, force_update=force_update, using='mongodb', update_fields=update_fields)
-
-    def delete(self, using=None, keep_parents=False):
-        return super().delete(using='mongodb', keep_parents=keep_parents)
+    class Meta:
+        db_table = 'survey_survey'

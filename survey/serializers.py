@@ -4,7 +4,7 @@ from rest_framework import serializers
 from survey.models import Survey
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class SurveySerializer(serializers.ModelSerializer):
     # responded_surveys = serializers.SerializerMethodField()
     #
     # def get_responded_surveys(self):
