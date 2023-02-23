@@ -1,8 +1,10 @@
-import mongoengine
+from mongoengine import connect
 import os
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+# Postgres default SQL database configuration
 
 DATABASES = {
     'default': {
@@ -15,11 +17,15 @@ DATABASES = {
     },
 }
 
-MONGO_NAME = os.environ.get('MONGO_INITDB_DATABASE')
-MONGO_HOST = os.environ.get('MONGO_HOST')
-MONGO_USER = os.environ.get('MONGO_INITDB_ROOT_USERNAME')
-MONGO_PASS = os.environ.get('MONGO_INITDB_ROOT_PASSWORD')
+# Mongo NoSQL database configuration
 
-MONGO_DATABASE_HOST = 'mongodb://%s:%s@%s/%s' % (MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_NAME)
+MONGO_CONNECTION = {
+    'db': os.environ.get('MONGO_INITDB_DATABASE'),
+    'host': os.environ.get('MONGO_HOST'),
+    'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
+    'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
+    'port': int(os.environ.get('MONGO_PORT_DJANGO')),
+    'authentication_mechanism': os.environ.get('AUTHENTICATION_MECHANISM'),
+}
 
-mongoengine.connect(MONGO_NAME, host=MONGO_DATABASE_HOST)
+connect(**MONGO_CONNECTION)

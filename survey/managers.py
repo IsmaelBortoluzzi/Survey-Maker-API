@@ -1,6 +1,6 @@
-from djongo import models
+from django.db.models import Manager
 
 
-class SurveyManager(models.DjongoManager):
+class SurveyManager(Manager):
     def mdb(self):
         return self.using('mongodb')
