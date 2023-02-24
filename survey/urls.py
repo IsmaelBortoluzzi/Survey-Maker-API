@@ -8,7 +8,7 @@ rud = 'retrieve-update-destroy'
 
 urlpatterns = [
     path('survey/', SurveyAPIV1ListCreate.as_view(), name=f'{lc}-surveys'),
-    path('survey/<str:pk>/', SurveyAPIV1RetrieveUpdateDestroy.as_view(), name=f'{rud}-surveys'),
+    path('survey/<str:pk>/', SurveyAPIV1RetrieveDestroy.as_view(), name=f'{rud}-surveys'),
 
-    path('survey-to-respond/<str:parent_pk>/', SurveyToRespondAPIV1ListCreate.as_view(), name=f'{lc}-surveys-to-respond'),
+    path('survey-to-respond/', SurveyToRespondAPIV1ListCreate.as_view(), name=f'{lc}-surveys-to-respond'),
 ]

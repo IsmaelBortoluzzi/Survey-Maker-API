@@ -32,6 +32,9 @@ class Survey(mongoengine.Document):
 
     meta = {'collection': 'survey_survey'}
 
+    def __str__(self):
+        return f'{self.title} - {self.author} - {self.date_created}'
+
 
 class SurveyToRespond(mongoengine.Document):
     date_responded = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
@@ -40,3 +43,6 @@ class SurveyToRespond(mongoengine.Document):
     survey = mongoengine.LazyReferenceField(Survey, reverse_delete_rule=CASCADE)
 
     meta = {'collection': 'survey_survey_to_respond'}
+
+    def __str__(self):
+        return f'{self.survey.respondent} - {self.survey.title}'
