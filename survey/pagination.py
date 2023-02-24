@@ -1,2 +1,5 @@
-class PageNumberPaginationMongoDB:
+from rest_framework.pagination import PageNumberPagination
+
+
+class PageNumberPaginationMongoDB(PageNumberPagination):
     page_size = 10

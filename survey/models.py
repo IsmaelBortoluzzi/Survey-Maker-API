@@ -1,25 +1,19 @@
 import datetime
-from enum import Enum
-
 import mongoengine
-from survey.managers import SurveyManager
 
 
 class QuestionChoices(mongoengine.EmbeddedDocument):
-    text = mongoengine.StringField(max_length=4096, default='')
+    text = mongoengine.StringField(max_length=4096, default='', null=True)
     chosen = mongoengine.BooleanField(default=False, required=True)
 
 
 class Question(mongoengine.EmbeddedDocument):
-    class QuestionType(Enum):
-        DESCRIPTIVE = 'descriptive'
-        MULTIPLE_CHOICE = 'multiple_choice'
-        MUTUALLY_EXCLUSIVE = 'mutually_exclusive'
+    QUESTION_TYPES = ('descriptive', 'multiple_choice', 'mutually_exclusive')
 
     name = mongoengine.StringField(max_length=512, required=True)
-    question_type = mongoengine.EnumField(QuestionType, default=QuestionType.DESCRIPTIVE, required=True)
+    question_type = mongoengine.StringField(choices=QUESTION_TYPES, default=QUESTION_TYPES[0], required=True)
 
-    written_answer = mongoengine.StringField(max_length=4096, default='')  # if it's a descriptive question
+    written_answer = mongoengine.StringField(max_length=4096, required=True, default='', null=True)   # if it's a descriptive question
     answer_choices = mongoengine.EmbeddedDocumentListField(document_type=QuestionChoices)  # if it's NOT a descriptive question
 
 
@@ -30,10 +24,9 @@ class SurveyToRespond(mongoengine.EmbeddedDocument):
 
 
 class Survey(mongoengine.Document):
-    _id = mongoengine.ObjectIdField(primary_key=True)
     date_created = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
     responded_surveys = mongoengine.EmbeddedDocumentListField(document_type=SurveyToRespond)
     author = mongoengine.IntField(required=True)
-    title = mongoengine.StringField(max_length=64, default='')
+    title = mongoengine.StringField(max_length=64, null=True, default='')
 
     meta = {'collection': 'survey_survey'}

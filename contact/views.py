@@ -16,11 +16,12 @@ class ContactAPIV1Pagination(PageNumberPagination):
 
 
 class ContactAPIV1ListCreate(ListCreateAPIView):
+    model = Contact
     serializer_class = ContactSerializer
     pagination_class = ContactAPIV1Pagination
 
     def get_queryset(self):
-        return Contact.objects.all()
+        return self.model.objects.all()
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -36,7 +37,7 @@ class ContactAPIV1ListCreate(ListCreateAPIView):
         user.set_password(data.get('password'))
         user.save()
 
-        Contact.objects.create(
+        self.model.objects.create(
             city=data.get('city_id'),
             birthday=data.get('birthday'),
             gender=data.get('gender'),
