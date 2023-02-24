@@ -1,5 +1,6 @@
 import datetime
 import mongoengine
+from mongoengine import CASCADE
 
 
 class QuestionChoices(mongoengine.EmbeddedDocument):
@@ -17,7 +18,7 @@ class Question(mongoengine.EmbeddedDocument):
     answer_choices = mongoengine.EmbeddedDocumentListField(document_type=QuestionChoices)  # if it's NOT a descriptive question
 
 
-class SurveyToRespond(mongoengine.EmbeddedDocument):
+class SurveyToRespondModel(mongoengine.EmbeddedDocument):
     date_responded = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
     respondent = mongoengine.IntField(required=True)
     questions = mongoengine.EmbeddedDocumentListField(document_type=Question)
@@ -25,8 +26,17 @@ class SurveyToRespond(mongoengine.EmbeddedDocument):
 
 class Survey(mongoengine.Document):
     date_created = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
-    responded_surveys = mongoengine.EmbeddedDocumentListField(document_type=SurveyToRespond)
+    survey_model = mongoengine.EmbeddedDocumentField(document_type=SurveyToRespondModel)
     author = mongoengine.IntField(required=True)
     title = mongoengine.StringField(max_length=64, null=True, default='')
 
     meta = {'collection': 'survey_survey'}
+
+
+class SurveyToRespond(mongoengine.Document):
+    date_responded = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
+    respondent = mongoengine.IntField(required=True)
+    questions = mongoengine.EmbeddedDocumentListField(document_type=Question)
+    survey = mongoengine.LazyReferenceField(Survey, reverse_delete_rule=CASCADE)
+
+    meta = {'collection': 'survey_survey_to_respond'}
