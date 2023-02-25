@@ -23,26 +23,6 @@ class QuestionSerializer(EmbeddedDocumentSerializer):
         model = Question
         fields = ('name', 'question_type', 'written_answer', 'answer_choices')
 
-    def update(self, instance, validated_data):
-        answer_choices = validated_data.pop('answer_choices')
-        updated_instance = super(QuestionSerializer, self).update(instance, validated_data)
-
-        for answer_choice in answer_choices:
-            updated_instance.answer_choices.append(QuestionChoices(**answer_choice))
-
-        updated_instance.save()
-        return updated_instance
-
-    def create(self, validated_data):
-        answer_choices = validated_data.pop('answer_choices')
-        created_instance = super(QuestionSerializer, self).create(validated_data)
-
-        for answer_choice in answer_choices:
-            created_instance.answer_choices.append(QuestionChoices(**answer_choice))
-
-        created_instance.save()
-        return created_instance
-
     def validate(self, attrs):
         name = attrs.get('name')
         question_type = attrs.get('question_type')

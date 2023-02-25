@@ -33,7 +33,7 @@ class SurveyAPIV1AddDelQuestion(IdParserMixin, GenericAPIView):
         survey = self.get_object()
         serializer = QuestionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        question = Question(**serializer.data)
+        question = Question(**serializer.validated_data)
         survey.survey_model.questions.append(question)
         survey.save()
         return Response(status=status.HTTP_200_OK)

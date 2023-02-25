@@ -45,5 +45,3 @@ class SurveyAPIV1RetrieveDestroy(RetrieveDestroyAPIView):
         self.check_object_permissions(self.request, obj)
 
         return obj
-
-
