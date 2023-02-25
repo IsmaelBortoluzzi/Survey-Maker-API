@@ -65,13 +65,13 @@ class CityAPIList(ListAPIView):
         qs = City.objects.all()
 
         lookup_fields = {
-            'name__iexact': self.normalize_field(qp.get('city', None)),
-            'state__name__iexact': self.normalize_field(qp.get('state', None)),
-            'state__country__name__iexact': self.normalize_field(qp.get('country', None)),
+            'name__icontains': self.normalize_field(qp.get('city', None)),
+            'state__name__icontains': self.normalize_field(qp.get('state', None)),
+            'state__country__name__icontains': self.normalize_field(qp.get('country', None)),
         }
         lookup_fields = dict(filter(lambda x: x[1] is not None, lookup_fields.items()))
 
-        return qs.filter(**lookup_fields)
+        return qs.filter(**lookup_fields).order_by('name')
 
 
 class CityAPIRetrieve(RetrieveAPIView):

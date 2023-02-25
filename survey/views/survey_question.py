@@ -4,7 +4,7 @@ from rest_framework_mongoengine.generics import GenericAPIView, get_object_or_40
 
 from survey.mixins import IdParserMixin
 from survey.models import Survey, Question, SurveyToRespond
-from survey.serializer import QuestionSerializer
+from survey.serializers import QuestionSerializer
 
 
 class SurveyAPIV1AddDelQuestion(IdParserMixin, GenericAPIView):
@@ -13,7 +13,7 @@ class SurveyAPIV1AddDelQuestion(IdParserMixin, GenericAPIView):
     def get_queryset(self):
         return Survey.objects.filter()
 
-    def check_if_exists_responses(self):
+    def check_if_exist_responses(self):
         _id = self.parse_obj_id(_id=self.kwargs.get(self.lookup_field, None))
         if SurveyToRespond.objects.filter(survey=_id).count() > 1:
             return True
@@ -25,7 +25,7 @@ class SurveyAPIV1AddDelQuestion(IdParserMixin, GenericAPIView):
         return obj
 
     def patch(self, request, parent_pk):
-        if self.check_if_exists_responses() is True:
+        if self.check_if_exist_responses() is True:
             return Response(
                 {"Error": "You can't modify the questions if there already are responded surveys"},
                 status=status.HTTP_400_BAD_REQUEST
@@ -39,7 +39,7 @@ class SurveyAPIV1AddDelQuestion(IdParserMixin, GenericAPIView):
         return Response(status=status.HTTP_200_OK)
 
     def delete(self, request, parent_pk):
-        if self.check_if_exists_responses() is True:
+        if self.check_if_exist_responses() is True:
             return Response(
                 {"Error": "You can't modify the questions if there already are responded surveys"},
                 status=status.HTTP_400_BAD_REQUEST

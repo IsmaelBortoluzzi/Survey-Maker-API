@@ -11,7 +11,7 @@ from rest_framework_mongoengine.generics import ListCreateAPIView, RetrieveDestr
 
 from survey.models import Survey, SurveyToRespond
 from survey.pagination import SurveyPageNumberPagination
-from survey.serializer import SurveySerializer, SurveyToRespondSerializer
+from survey.serializers import SurveySerializer, SurveyToRespondSerializer
 
 
 class SurveyAPIV1ListCreate(ListCreateAPIView):

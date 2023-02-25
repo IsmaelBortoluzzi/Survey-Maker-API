@@ -10,7 +10,7 @@ from rest_framework_mongoengine.generics import ListCreateAPIView, get_object_or
 from survey.mixins import IdParserMixin
 from survey.models import Survey, SurveyToRespond
 from survey.pagination import SurveyPageNumberPagination
-from survey.serializer import SurveyToRespondSerializer
+from survey.serializers import SurveyToRespondSerializer
 
 
 class SurveyToRespondAPIV1ListCreate(IdParserMixin, ListCreateAPIView):
