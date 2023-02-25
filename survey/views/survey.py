@@ -7,7 +7,7 @@ from django.core.exceptions import BadRequest
 
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework_mongoengine.generics import ListCreateAPIView, RetrieveDestroyAPIView, get_object_or_404
+from rest_framework_mongoengine.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 
 from survey.models import Survey, SurveyToRespond
 from survey.pagination import SurveyPageNumberPagination
@@ -22,7 +22,7 @@ class SurveyAPIV1ListCreate(ListCreateAPIView):
         return Survey.objects.filter()
 
 
-class SurveyAPIV1RetrieveDestroy(RetrieveDestroyAPIView):
+class SurveyAPIV1RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     model = Survey
     serializer_class = SurveySerializer
     pagination_class = SurveyPageNumberPagination
@@ -45,3 +45,9 @@ class SurveyAPIV1RetrieveDestroy(RetrieveDestroyAPIView):
         self.check_object_permissions(self.request, obj)
 
         return obj
+
+    def update(self, request, *args, **kwargs):
+        error_response = Response({'Error': 'You can only update the field "title"'})
+        if 'title' not in request.data.keys() or len(request.data.keys()) > 1:
+            return error_response
+        return super().update(request, *args, **kwargs)
