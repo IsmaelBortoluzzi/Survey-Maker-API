@@ -66,6 +66,9 @@ class ContactAPIV1RetrieveUpdate(RetrieveUpdateAPIView):
             return [IsAuthenticated(), ContactBelongsToUser(), ]
         return super().get_permissions()
 
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 class CityAPIList(ListAPIView):
     serializer_class = CitySerializer

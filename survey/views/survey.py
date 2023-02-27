@@ -55,3 +55,6 @@ class SurveyAPIV1RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         if 'title' not in request.data.keys() or len(request.data.keys()) > 1:
             return error_response
         return super().update(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
