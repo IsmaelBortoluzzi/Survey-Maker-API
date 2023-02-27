@@ -5,7 +5,7 @@ from mongoengine import CASCADE
 
 class QuestionChoices(mongoengine.EmbeddedDocument):
     text = mongoengine.StringField(max_length=4096, default='', null=True)
-    chosen = mongoengine.BooleanField(default=False, required=True)
+    chosen = mongoengine.BooleanField(default=False)
 
 
 class Question(mongoengine.EmbeddedDocument):

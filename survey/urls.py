@@ -15,4 +15,5 @@ urlpatterns = [
 
     path('survey-to-respond/add-del-question/<str:parent_pk>/', SurveyAPIV1AddDelUpdateQuestion.as_view(), name=f'surveys-to-respond-add-del-question'),
 
+    path('survey-to-respond/add-del-question-choice/<str:parent_pk>/', SurveyAPIV1AddDelQuestionChoice.as_view(), name=f'surveys-to-respond-add-del-question-choice'),
 ]
