@@ -5,12 +5,13 @@ from rest_framework_mongoengine.generics import GenericAPIView, get_object_or_40
 
 from survey.mixins import IdParserMixin
 from survey.models import Survey, Question, SurveyToRespond
+from survey.permissions import IsOwner
 from survey.serializers import QuestionSerializer
 
 
 class SurveyAPIV1AddDelUpdateQuestion(IdParserMixin, GenericAPIView):
     lookup_field = 'parent_pk'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
         return Survey.objects.all()

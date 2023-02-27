@@ -22,7 +22,6 @@ class IsOwner(permissions.BasePermission):
         return super().has_permission(request, view)
 
     def has_object_permission(self, request, view, obj):
-        print(obj.author, request.user.id)
         return obj.author == request.user.id
 
 
