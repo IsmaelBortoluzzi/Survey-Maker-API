@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_mongoengine.generics import GenericAPIView, get_object_or_404
 
@@ -9,6 +10,7 @@ from survey.serializers import QuestionSerializer
 
 class SurveyAPIV1AddDelUpdateQuestion(IdParserMixin, GenericAPIView):
     lookup_field = 'parent_pk'
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Survey.objects.all()

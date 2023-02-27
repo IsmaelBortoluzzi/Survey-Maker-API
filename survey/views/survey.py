@@ -6,20 +6,23 @@ from bson.objectid import ObjectId
 from django.core.exceptions import BadRequest
 
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_mongoengine.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 
 from survey.models import Survey, SurveyToRespond
 from survey.pagination import SurveyPageNumberPagination
+from survey.permissions import IsAuthor, IsOwner
 from survey.serializers import SurveySerializer, SurveyToRespondSerializer
 
 
 class SurveyAPIV1ListCreate(ListCreateAPIView):
     serializer_class = SurveySerializer
     pagination_class = SurveyPageNumberPagination
+    permission_classes = [IsAuthenticated, IsAuthor]
 
     def get_queryset(self):
-        return Survey.objects.filter()
+        return Survey.objects.filter(author=self.request.user.id)
 
 
 class SurveyAPIV1RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
@@ -27,6 +30,7 @@ class SurveyAPIV1RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     serializer_class = SurveySerializer
     pagination_class = SurveyPageNumberPagination
     lookup_field = 'pk'
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def parse_obj_id(self):
         try:
@@ -35,7 +39,7 @@ class SurveyAPIV1RetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             raise BadRequest('Error: Invalid object ID')
 
     def get_queryset(self):
-        return Survey.objects.filter()
+        return Survey.objects.all()
 
     def get_object(self):
         queryset = self.get_queryset()
