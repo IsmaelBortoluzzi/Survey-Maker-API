@@ -26,6 +26,7 @@ class SurveyToRespondModel(mongoengine.EmbeddedDocument):
 
 class Survey(mongoengine.Document):
     date_created = mongoengine.DateTimeField(default=datetime.datetime.utcnow)
+    valid_until = mongoengine.DateTimeField()
     survey_model = mongoengine.EmbeddedDocumentField(document_type=SurveyToRespondModel)
     author = mongoengine.IntField(required=True)
     title = mongoengine.StringField(max_length=64, null=True, default='')

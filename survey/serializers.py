@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.core.exceptions import BadRequest
-from rest_framework.serializers import SerializerMethodField
+from rest_framework.serializers import SerializerMethodField, DateTimeField
 
 from survey.models import Survey, SurveyToRespond, Question, QuestionChoices, SurveyToRespondModel
 from rest_framework_mongoengine.serializers import DocumentSerializer, EmbeddedDocumentSerializer
@@ -46,14 +46,11 @@ class QuestionSerializer(EmbeddedDocumentSerializer):
 class SurveyToRespondSerializer(DocumentSerializer):
     questions = QuestionSerializer(many=True)
     _id = SerializerMethodField(method_name='get_id')
-    date_responded = SerializerMethodField()
+    date_responded = DateTimeField(format='%Y-%m-%d %H:%M:%S')
     survey = DocumentPrimaryKeyRelatedField(queryset=Survey.objects.all())
 
     def get_id(self, obj):
         return str(obj.id)
-
-    def get_date_responded(self, obj):
-        return obj.date_responded.strftime('%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = SurveyToRespond
@@ -93,10 +90,7 @@ class SurveyToRespondSerializer(DocumentSerializer):
 
 class SurveyToRespondModelSerializer(EmbeddedDocumentSerializer):
     questions = QuestionSerializer(many=True)
-    date_responded = SerializerMethodField()
-
-    def get_date_responded(self, obj):
-        return obj.date_responded.strftime('%Y-%m-%d %H:%M:%S')
+    date_responded = DateTimeField(format='%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = SurveyToRespondModel
@@ -105,8 +99,9 @@ class SurveyToRespondModelSerializer(EmbeddedDocumentSerializer):
 
 class SurveySerializer(DocumentSerializer):
     survey_model = SurveyToRespondModelSerializer(many=False)
-    date_created = SerializerMethodField()
     _id = SerializerMethodField(method_name='get_id')
+    date_created = SerializerMethodField()
+    valid_until = DateTimeField(format='%Y-%m-%d %H:%M:%S')
 
     def get_id(self, obj):
         return str(obj.id)
@@ -116,7 +111,7 @@ class SurveySerializer(DocumentSerializer):
 
     class Meta:
         model = Survey
-        fields = ('_id', 'date_created', 'survey_model', 'author', 'title')
+        fields = ('_id', 'date_created', 'survey_model', 'author', 'title', 'valid_until')
         depth = 3
 
     def validate(self, attrs):
