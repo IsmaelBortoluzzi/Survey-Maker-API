@@ -11,7 +11,7 @@ from rest_framework_mongoengine.generics import ListCreateAPIView, get_object_or
 from survey.mixins import IdParserMixin
 from survey.models import Survey, SurveyToRespond
 from survey.pagination import SurveyPageNumberPagination
-from survey.permissions import IsOwnerOfParentSurvey
+from survey.permissions import IsOwnerOfParentSurvey, CanDeleteSurveyToRespond
 from survey.serializers import SurveyToRespondSerializer
 
 
@@ -40,7 +40,7 @@ class SurveyToRespondAPIV1RetrieveDestroy(IdParserMixin, RetrieveDestroyAPIView)
 
     def get_permissions(self):
         if self.request.method == 'DELETE':
-            return [IsOwnerOfParentSurvey(), ]
+            return [IsAuthenticated(), CanDeleteSurveyToRespond(), ]
         return super().get_permissions()
 
     def get_queryset(self):
