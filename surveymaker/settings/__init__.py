@@ -9,5 +9,6 @@ from .i18n import *
 from .messages import *
 from .security import *
 from .templates import *
+from .rest_framework import *
 
 from .debug_toolbar import *  # isort:skip

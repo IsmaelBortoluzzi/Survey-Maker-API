@@ -14,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     city = serializers.StringRelatedField(read_only=True)
     city_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=City.objects.all())
     user_object = UserSerializer(many=False, source='user', read_only=True)
@@ -28,7 +29,7 @@ class ContactSerializer(serializers.ModelSerializer):
         fields = (
             'user_object', 'city', 'city_id', 'gender',
             'birthday', 'first_name', 'last_name', 'email',
-            'password', 'username'
+            'password', 'username', 'id'
         )
 
 

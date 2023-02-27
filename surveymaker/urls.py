@@ -16,7 +16,7 @@ Including another URLconf
 import django.conf
 from django.contrib import admin
 from django.urls import path, include
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 base_v1_url = 'api/v1/'
 
@@ -24,6 +24,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(base_v1_url, include('contact.urls')),
     path(base_v1_url, include('survey.urls')),
+]
+
+urlpatterns += [
+    # Simple JWT URLs
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 if django.conf.settings.DEBUG:

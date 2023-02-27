@@ -30,6 +30,7 @@ class SurveyAPIV1AddDelUpdateQuestion(IdParserMixin, GenericAPIView):
     def get_object(self):
         _id = self.parse_obj_id(_id=self.kwargs.get(self.lookup_field, None))
         obj = get_object_or_404(self.get_queryset(), id=_id)
+        self.check_object_permissions(self.request, obj)
         return obj
 
     @staticmethod
