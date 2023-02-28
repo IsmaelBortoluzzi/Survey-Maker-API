@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 from contact.models import City, Contact
 from contact.serializers import CitySerializer, ContactSerializer
-from contact.permissions import ContactBelongsToUser
+from contact.permissions import ContactBelongsToUser, IsSuperUser
 
 from unicodedata import normalize
 
@@ -29,7 +29,7 @@ class ContactAPIV1ListCreate(ListCreateAPIView):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [ContactBelongsToUser(), ]
+            return [IsSuperUser(), ]
         return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
