@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "10bd363e-a2f3-4fdc-b258-38a81508b978",
+		"name": "survey-maker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login_logout",
+			"item": [
+				{
+					"name": "get token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"johnconnor\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3NzY2OTE1MiwiaWF0IjoxNjc3NTgyNzUyLCJqdGkiOiJiYTRmZmRiNDg1ZTE0MThiYmQzMTcyZDliNTg4NTIxNSIsInVzZXJfaWQiOjF9.k1aALte9NyH8oFAvYhZ3HyWD55fxPVA-knOp2eToPNI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "city",
+			"item": [
+				{
+					"name": "get cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/city/?city=São M",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"city",
+								""
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "São M"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/city/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"city",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contact",
+			"item": [
+				{
+					"name": "get one contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/contact/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all contacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/contact/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Connor\",\n    \"password\": \"123\",\n    \"email\": \"john.connor@blah.com\",\n    \"city_id\": 1,\n    \"gender\": \"masculine\",\n    \"birthday\": \"1975-01-20\",\n    \"username\": \"johnconnor\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/contact/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"contact",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "survey",
+			"item": [
+				{
+					"name": "get all surveys",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post a  survey",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"valid_until\": \"2023-03-07 13:00:00\",\n    \"survey_model\": {\n        \"date_responded\": \"2023-02-24 00:00:30\",\n        \"respondent\": 1,\n        \"questions\": [\n            {\n                \"name\": \"How old Are you?\",\n                \"question_type\": \"descriptive\",\n                \"written_answer\": \"\",\n                \"answer_choices\": []\n            },\n            {\n                \"name\": \"Which of the 3 cars is your favorite?\",\n                \"question_type\": \"mutually_exclusive\",\n                \"written_answer\": \"\",\n                \"answer_choices\": [\n                    {\n                        \"text\": \"Opala 6 caneco\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"Maverick\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"Chevettão\",\n                        \"chosen\": false\n                    }\n                ]\n            },\n            {\n                \"name\": \"Out of the 5 countries, which of them would you like to visit?\",\n                \"question_type\": \"mutually_exclusive\",\n                \"written_answer\": \"\",\n                \"answer_choices\": [\n                    {\n                        \"text\": \"Germany\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"UK\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"USA\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"France\",\n                        \"chosen\": false\n                    },\n                    {\n                        \"text\": \"Italy\",\n                        \"chosen\": false\n                    }\n                ]\n            }\n        ]\n    },\n    \"title\": \"First Survey\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one survey",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey/63fde25f559f0dbad16c2ce6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey",
+								"63fde25f559f0dbad16c2ce6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one survey",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey/63fc975fb46bdcf0eefc97dd/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey",
+								"63fc975fb46bdcf0eefc97dd",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update title",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Second Survey\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey/63fc975fb46bdcf0eefc97dd/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey",
+								"63fc975fb46bdcf0eefc97dd",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "survey_to_respond",
+			"item": [
+				{
+					"name": "get surveys to respond",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/?survey=63fc98a8dc92d735ad349297",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								""
+							],
+							"query": [
+								{
+									"key": "survey",
+									"value": "63fc98a8dc92d735ad349297"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one survey to respond",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/63fde25f559f0dbad16c2ce6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"63fde25f559f0dbad16c2ce6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post survey to respond",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date_responded\": \"2023-01-31 00:00:30\",\n    \"survey\": \"63fc98a8dc92d735ad349297\",\n    \"respondent\": 1,\n    \"questions\": [\n        {\n            \"name\": \"How old Are you?\",\n            \"question_type\": \"descriptive\",\n            \"written_answer\": \"\",\n            \"answer_choices\": []\n        },\n        {\n            \"name\": \"Which of the 3 cars is your favorite?\",\n            \"question_type\": \"mutually_exclusive\",\n            \"written_answer\": \"\",\n            \"answer_choices\": [\n                {\n                    \"text\": \"Opala 6 caneco\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"Maverick\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"Chevettão\",\n                    \"chosen\": false\n                }\n            ]\n        },\n        {\n            \"name\": \"Out of the 5 countries, which of them would you like to visit?\",\n            \"question_type\": \"descriptive\",\n            \"written_answer\": \"\",\n            \"answer_choices\": [\n                {\n                    \"text\": \"Germany\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"UK\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"USA\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"France\",\n                    \"chosen\": false\n                },\n                {\n                    \"text\": \"Italy\",\n                    \"chosen\": false\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete survey to respond",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/63fde25f559f0dbad16c2ce6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"63fde25f559f0dbad16c2ce6",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "survey_question",
+			"item": [
+				{
+					"name": "add question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Which of the 3 boats is your favorite?\",\n    \"question_type\": \"mutually_exclusive\",\n    \"written_answer\": \"\",\n    \"answer_choices\": [\n        {\n            \"text\": \"Hipper\",\n            \"chosen\": false\n        },\n        {\n            \"text\": \"Bismarck\",\n            \"chosen\": false\n        },\n        {\n            \"text\": \"Prinz Eugen\",\n            \"chosen\": false\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question/63fc98a8dc92d735ad349297/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question",
+								"63fc98a8dc92d735ad349297",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update question name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"name\": \"Which of the boats is your favorite?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question/63fc98a8dc92d735ad349297/?current_name=Which of the 3 boats is your favorite?",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question",
+								"63fc98a8dc92d735ad349297",
+								""
+							],
+							"query": [
+								{
+									"key": "current_name",
+									"value": "Which of the 3 boats is your favorite?"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question/63fc98a8dc92d735ad349297/?name=Which of the 3 boats is your favorite?",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question",
+								"63fc98a8dc92d735ad349297",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Which of the 3 boats is your favorite?"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "survey_question_choice",
+			"item": [
+				{
+					"name": "add question choice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question_name\": \"Out of the 5 countries, which of them would you like to visit?\",\n    \"text\": \"Poland\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question-choice/63fc98a8dc92d735ad349297/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question-choice",
+								"63fc98a8dc92d735ad349297",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update question choice",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"question_name\": \"Out of the 5 countries, which of them would you like to visit?\",\n    \"text\": \"United Kingdom\",\n    \"old_text\": \"UK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question-choice/63fc98a8dc92d735ad349297/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question-choice",
+								"63fc98a8dc92d735ad349297",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete question choice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question_name\": \"Out of the 5 countries, which of them would you like to visit?\",\n    \"text\": \"Which country?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/survey-to-respond/add-del-question-choice/63fc9333b4b5831328c5569e/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"survey-to-respond",
+								"add-del-question-choice",
+								"63fc9333b4b5831328c5569e",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc3NTg5MDQ0LCJpYXQiOjE2Nzc1ODg3NDQsImp0aSI6ImY3MWM0MzIyZDRjMDQyNmQ5OGMwOGM0MzQyY2U2YTAwIiwidXNlcl9pZCI6N30.8M8VAoH90lA_v91Cmu9F0-I8aG_UagUNJQdDq0sPFE4",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -13,6 +13,7 @@
 
 - [What Is This Project](#what-is-this-project)
 - [Starting](#starting)
+- [Endpoints](#endpoints)
 - [Contributing](#contributing)
 - [Creators](#creators)
 - [Thanks](#thanks)
@@ -23,7 +24,8 @@
 
 This is an application created to conduct surveys for researches, like google forms.
 Reports are easy to be implemented in the future, mainly due to the 
-concise database schema of the surveys and answered surveys.
+concise database schema of the surveys and answered surveys. The authentication
+method is JWT
 
 
 ## Starting 
@@ -49,6 +51,24 @@ Linux OS:
       $ python manage.py runserver
 
 Don't forget to create your own .env based on the .env-example file
+
+
+## Endpoints
+
+You can find all the endpoints in the file ENDPOINTS.md, as well as a postman export file
+with a usage of each endpoint. Don't forget to insert the city_inserts. 
+
+
+#### Setting Up JWT Token In Postman:
+
+first, get an access token, then click the root directory, go to Authorization, 
+select "Bearer Token" and past your access token in the "Token" field. Postman
+will generate the correct header for every request.
+
+#### Creating A Survey:
+
+Only authors can create surveys and to make a user an author, you must do it
+using django admin interface with a superuser
 
 
 ## Contributing
