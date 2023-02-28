@@ -133,3 +133,5 @@ static/
 .postgres_data/
 .mongo_data/
 .mongo_express_data/
+.static_data/
+.media_data/
