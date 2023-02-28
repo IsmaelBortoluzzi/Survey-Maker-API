@@ -43,10 +43,11 @@ class SurveyAPIV1AddDelUpdateQuestion(IdParserMixin, GenericAPIView):
         return Response({"Error": message}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, parent_pk):
+        survey = self.get_object()
+
         if self.check_if_exist_responses() is True:
             return self.bad_request("You can't modify the questions if there already are responded surveys")
 
-        survey = self.get_object()
         serializer = QuestionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         question = Question(**serializer.validated_data)
@@ -67,22 +68,24 @@ class SurveyAPIV1AddDelUpdateQuestion(IdParserMixin, GenericAPIView):
                 question.name = new_name
 
     def patch(self, request, parent_pk):
+        survey = self.get_object()
+
         if 'name' not in request.data.keys() or len(request.data.keys()) > 1:
             return self.bad_request('You can only update the field "name"')
         if self.check_if_exists_question(self.request.query_params.get('current_name')) is False:
             return self.not_found('A question with this name does not exist in this survey')
 
-        survey = self.get_object()
         self.update_question(survey)
         survey.save()
 
         return Response(status=status.HTTP_200_OK)
 
     def delete(self, request, parent_pk):
+        survey = self.get_object()
+
         if self.check_if_exist_responses() is True:
             return self.bad_request("You can't modify the questions if there already are responded surveys")
 
-        survey = self.get_object()
         question_name = self.request.query_params.get('name', None)
         if question_name is not None:
             survey.survey_model.questions = list(filter(lambda x: x.name != question_name, survey.survey_model.questions))
