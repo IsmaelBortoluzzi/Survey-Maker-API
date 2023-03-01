@@ -3,40 +3,33 @@ import django.conf
 import os
 
 
-def get_postgresql_host():
-    if django.conf.settings.DEBUG:
-        return os.environ.get('DATABASE_HOST')
-    return os.environ.get('DATABASE_HOST_DOCKER_COMPOSE')
-
-
-def get_mongodb_host():
-    if django.conf.settings.DEBUG:
-        return os.environ.get('MONGO_HOST')
-    return os.environ.get('MONGO_HOST_DOCKER_COMPOSE')
-
+if django.conf.settings.DEBUG:
+    suffix = 'DEV'
+else:
+    suffix = 'PROD'
 
 # Postgres default SQL database configuration
 
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE'),
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': get_postgresql_host(),
-        'PORT': os.environ.get('DATABASE_PORT'),
+        'NAME': os.environ.get(f'DATABASE_NAME_{suffix}'),
+        'USER': os.environ.get(f'DATABASE_USER_{suffix}'),
+        'PASSWORD': os.environ.get(f'DATABASE_PASSWORD_{suffix}'),
+        'HOST': os.environ.get(f'DATABASE_HOST_{suffix}'),
+        'PORT': os.environ.get(f'DATABASE_PORT_{suffix}'),
     },
 }
 
 # Mongo NoSQL database configuration
 
 MONGO_CONNECTION = {
-    'db': os.environ.get('MONGO_INITDB_DATABASE'),
-    'host': get_mongodb_host(),
-    'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
-    'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
-    'port': int(os.environ.get('MONGO_PORT_DJANGO')),
-    'authentication_mechanism': os.environ.get('AUTHENTICATION_MECHANISM'),
+    'db': os.environ.get(f'MONGO_NAME_{suffix}'),
+    'host': os.environ.get(f'MONGO_HOST_{suffix}'),
+    'username': os.environ.get(f'MONGO_USER_{suffix}'),
+    'password': os.environ.get(f'MONGO_PASSWORD_{suffix}'),
+    'port': int(os.environ.get(f'MONGO_PORT_{suffix}')),
+    'authentication_mechanism': os.environ.get(f'AUTHENTICATION_MECHANISM_{suffix}'),
 }
 
 connect(**MONGO_CONNECTION)

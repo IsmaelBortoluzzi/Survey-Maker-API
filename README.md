@@ -31,9 +31,12 @@ method is JWT
 ## Starting 
 Linux OS:
 
-- for building the databases and mongo-express manager: 
+- for building the databases and mongo-express manager for development: 
 
-      $ docker-compose up -d
+      $ docker-compose -f docker-compose-dev.yml up -d
+- for building the databases and mongo-express manager for production: 
+
+      $ docker-compose -f docker-compose-prod.yml up -d
 - creating the venv
 
       $ python3 -m venv venv
@@ -51,6 +54,9 @@ Linux OS:
       $ python manage.py runserver
 
 Don't forget to create your own .env based on the .env-example file
+Note that the development docker only serve the databases and mongo-express, 
+you need to connect to them with the application running locally.
+The production docker is ready for use on default port 80
 
 
 ## Endpoints
