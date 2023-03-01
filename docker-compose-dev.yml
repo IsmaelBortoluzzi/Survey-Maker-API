@@ -35,12 +35,10 @@ services:
     volumes:
       - ./.mongo_express_data:/data/db
 
-  postgresql:
-    container_name: postgresql
+  postgres:
+    container_name: postgres
     image: postgres:14.3
     restart: always
-    networks:
-      - postgres-compose-network
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -50,38 +48,11 @@ services:
     volumes:
       - ./.postgres_data:/var/lib/postgresql/data/
 
-  django_app:
-    container_name: django_app
-    build: .
-    user: root
-    ports:
-      - "8000:8000"
-    networks:
-      - postgres-compose-network
-      - mongo-compose-network
-    depends_on:
-      - postgresql
-      - mongodb
-    env_file:
-      - .env
-    environment:
-      - DATABASE_HOST=postgresql
-      - MONGO_HOST=mongodb
-
-    restart: on-failure
-    volumes:
-      - ./.static_data:/app/assets
-      - ./.media_data:/app/media
-
 volumes:
   .postgres_data:
   .mongo_data:
   .mongo_express_data:
-  .static_data:
-  .media_data:
 
 networks:
   mongo-compose-network:
-      driver: bridge
-  postgres-compose-network:
       driver: bridge
