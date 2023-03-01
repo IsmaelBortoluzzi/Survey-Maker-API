@@ -93,6 +93,6 @@ Thank you for taking a look at my project!
 
 ## Copyright and license
 
-Code released under the [freeBSD License](https://github.com/IsmaelBortoluzzi/Risc-V-Interpreter/blob/master/LICENSE.md).
+Code released under the [freeBSD License](https://github.com/IsmaelBortoluzzi/Survey-Maker-API/blob/master/LICENSE.md).
 
 Enjoy
