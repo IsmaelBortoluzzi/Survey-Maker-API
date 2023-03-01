@@ -1,0 +1,13 @@
+FROM python:3.10.10-bullseye
+
+ADD . /app
+
+WORKDIR /app
+
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && chmod +x /app/django_app_entrypoint.sh
+
+EXPOSE 8000
+
+CMD ["/app/django_app_entrypoint.sh"]

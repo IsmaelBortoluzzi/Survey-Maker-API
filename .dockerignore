@@ -1,10 +1,7 @@
-.mongo_data
-.mongo_express_data
-.postgres_data
-.static_data
-.media_data
+volumes
 LICENSE.md
 ENDPOINTS.md
 README.md
 postman_export_for_testing.json
 venv
+__pycache__

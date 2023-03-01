@@ -14,7 +14,7 @@ services:
     ports:
       - ${MONGO_PORT}
     volumes:
-      - ./.mongo_data:/data/db
+      - ./volumes/mongo_data:/data/db
 
   mongo-express:
     container_name: mongo-express
@@ -33,7 +33,7 @@ services:
     ports:
       - ${MONGO_EXPRESS_PORT}
     volumes:
-      - ./.mongo_express_data:/data/db
+      - ./volumes/mongo_express_data:/data/db
 
   postgres:
     container_name: postgres
@@ -46,7 +46,7 @@ services:
     ports:
       - ${POSTGRES_PORT}
     volumes:
-      - ./.postgres_data:/var/lib/postgresql/data/
+      - ./volumes/postgres_data:/var/lib/postgresql/data/
 
 volumes:
   .postgres_data:

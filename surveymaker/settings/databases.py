@@ -1,8 +1,19 @@
 from mongoengine import connect
+import django.conf
 import os
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+def get_postgresql_host():
+    if django.conf.settings.DEBUG:
+        return os.environ.get('DATABASE_HOST')
+    return os.environ.get('DATABASE_HOST_DOCKER_COMPOSE')
+
+
+def get_mongodb_host():
+    if django.conf.settings.DEBUG:
+        return os.environ.get('MONGO_HOST')
+    return os.environ.get('MONGO_HOST_DOCKER_COMPOSE')
+
 
 # Postgres default SQL database configuration
 
@@ -12,7 +23,7 @@ DATABASES = {
         'NAME': os.environ.get('DATABASE_NAME'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
+        'HOST': get_postgresql_host(),
         'PORT': os.environ.get('DATABASE_PORT'),
     },
 }
@@ -21,7 +32,7 @@ DATABASES = {
 
 MONGO_CONNECTION = {
     'db': os.environ.get('MONGO_INITDB_DATABASE'),
-    'host': os.environ.get('MONGO_HOST'),
+    'host': get_mongodb_host(),
     'username': os.environ.get('MONGO_INITDB_ROOT_USERNAME'),
     'password': os.environ.get('MONGO_INITDB_ROOT_PASSWORD'),
     'port': int(os.environ.get('MONGO_PORT_DJANGO')),

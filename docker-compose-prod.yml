@@ -14,7 +14,7 @@ services:
     ports:
       - ${MONGO_PORT}
     volumes:
-      - ./.mongo_data:/data/db
+      - ./volumes/mongo_data:/data/db
 
   mongo-express:
     container_name: mongo-express
@@ -33,7 +33,7 @@ services:
     ports:
       - ${MONGO_EXPRESS_PORT}
     volumes:
-      - ./.mongo_express_data:/data/db
+      - ./volumes/mongo_express_data:/data/db
 
   postgresql:
     container_name: postgresql
@@ -48,40 +48,56 @@ services:
     ports:
       - ${POSTGRES_PORT}
     volumes:
-      - ./.postgres_data:/var/lib/postgresql/data/
+      - ./volumes/postgres_data:/var/lib/postgresql/data/
 
   django_app:
     container_name: django_app
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-app
     user: root
     ports:
       - "8000:8000"
     networks:
       - postgres-compose-network
       - mongo-compose-network
+      - django-compose-network
     depends_on:
       - postgresql
       - mongodb
     env_file:
       - .env
-    environment:
-      - DATABASE_HOST=postgresql
-      - MONGO_HOST=mongodb
-
     restart: on-failure
     volumes:
-      - ./.static_data:/app/assets
-      - ./.media_data:/app/media
+      - ./volumes/static_data:/app/static/
+      - ./volumes/media_data:/app/media/
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    restart: always
+    volumes:
+      - ./volumes/static_data:/app/static/
+      - ./volumes/media_data:/app/media/
+    ports:
+      - "80:80"
+    depends_on:
+      - django_app
+    networks:
+      - django-compose-network
 
 volumes:
-  .postgres_data:
-  .mongo_data:
-  .mongo_express_data:
-  .static_data:
-  .media_data:
+  postgres_data:
+  mongo_data:
+  mongo_express_data:
+  static_data:
+  media_data:
 
 networks:
   mongo-compose-network:
       driver: bridge
   postgres-compose-network:
+      driver: bridge
+  django-compose-network:
       driver: bridge
