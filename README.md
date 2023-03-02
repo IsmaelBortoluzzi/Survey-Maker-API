@@ -62,7 +62,8 @@ The production docker is ready for use on default port 80
 ## Endpoints
 
 You can find all the endpoints in the file ENDPOINTS.md, as well as a postman export file
-with a usage of each endpoint. Don't forget to insert the city_inserts. 
+with a usage of each endpoint. Don't forget to insert the city_inserts and to import
+the postman_export_for_testing.json in your local Postman for test
 
 
 #### Setting Up JWT Token In Postman:

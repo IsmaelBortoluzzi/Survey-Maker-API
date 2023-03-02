@@ -31,6 +31,12 @@ class SurveyToRespondAPIV1ListCreate(IdParserMixin, ListCreateAPIView):
         qs = self.model.objects.filter(survey=_id)
         return qs
 
+    def create(self, request, *args, **kwargs):
+        _id = self.parse_obj_id(_id=request.data.get('survey', None))
+        if Survey.objects.filter(id=_id).count() == 0:
+            return Response({'Error': 'Survey does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return super().create(request, *args, **kwargs)
+
 
 class SurveyToRespondAPIV1RetrieveDestroy(IdParserMixin, RetrieveDestroyAPIView):
     serializer_class = SurveyToRespondSerializer
