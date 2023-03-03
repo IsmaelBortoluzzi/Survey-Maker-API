@@ -34,7 +34,7 @@ Linux OS:
 - for building the databases and mongo-express manager for development: 
 
       $ docker-compose -f docker-compose-dev.yml up -d
-- for building the databases and mongo-express manager for production: 
+- for building for production: 
 
       $ docker-compose -f docker-compose-prod.yml up -d
 - creating the venv
