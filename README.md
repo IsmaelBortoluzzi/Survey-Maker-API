@@ -57,6 +57,8 @@ Don't forget to create your own .env based on the .env-example file
 Note that the development docker only serve the databases and mongo-express, 
 you need to connect to them with the application running locally.
 The production docker is ready for use on default port 80
+The production docker will work only with DEBUG=0 and the dev one
+with DEBUG=1
 
 
 ## Endpoints
